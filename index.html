@@ -72,11 +72,42 @@ svg{width:100%;height:610px;display:block}
 .footer span{display:block}
 }
 
-</style></head><body><header><div class="logo"><b>D</b>DORAK　／　土耳其靈感地圖</div><span class="small">旅行社 × 在地操作　共同發想 &nbsp; <a href="en.html">EN</a></span></header><main><div class="heading"><div><div class="eyebrow">TÜRKİYE · DESTINATION EXPLORER</div><h1>從一個省份，開始拼出一趟旅程。</h1><p>點選土耳其省界看目的地靈感；把想去的地方加入路線，再拖曳調整順序。</p></div><div class="small" id="count">已探索 0 / 81 省</div></div><div class="explore"><section class="map-area"><div class="map-title"><b>土耳其全圖</b><small>選區域縮小範圍；點選省界查看靈感</small></div><div class="regions" id="regions"></div><svg id="map" viewBox="0 0 820 600" role="img" aria-label="土耳其81省互動地圖"><rect width="820" height="600" fill="#e9efeb"/><g id="shapes"></g><g id="poiLayer"></g><g id="routeLayer"></g></svg><div class="map-legend">省界資料：OpenStreetMap 衍生 GeoJSON · 點選省份查看資訊</div></section><aside class="panel"><div class="panel-head"><div class="sup" id="regionLabel">TÜRKİYE · 全圖</div><h2 id="title">選一個省份開始探索</h2><p id="description">目前顯示土耳其全境。可點選省界，或從上方選擇地理區域。</p></div><div class="tabs"><button class="on" data-tab="ideas">目的地靈感</button><button data-tab="route">路線草稿 <span id="routeCount">0</span></button></div><div class="pane" id="pane"></div><div class="panel-actions"><button class="btn" id="addRoute" disabled>＋ 加入路線</button><button class="btn alt" id="resetRoute">清空路線</button></div></aside></div><div class="footer"><span>資料整理初稿｜主要參考 GoTürkiye 官方旅遊頁；部分省份資訊有限，請點來源複核後再對外使用。</span><span>地圖界線來自 OSM 衍生 GeoJSON，正式上線前應核對授權與行政資料版本。</span></div></main><div class="toast" id="toast"></div>
+
+.city-label-line{stroke:#9b8063;stroke-width:.7;opacity:.68;pointer-events:none;vector-effect:non-scaling-stroke}
+.city-dot{fill:#183a4d;stroke:#fffdf8;stroke-width:1.4;vector-effect:non-scaling-stroke}
+.city-label-bg{fill:#fffdf8;fill-opacity:.94;stroke:#d8cdbd;stroke-width:.65;vector-effect:non-scaling-stroke}
+.city-label-text{fill:#183a4d;font-family:'DM Sans','Noto Sans TC',Arial,sans-serif;font-weight:700;pointer-events:none}
+.city-label{cursor:pointer}
+.city-label:hover .city-label-bg,.city-label.selected .city-label-bg{fill:#efe1cf;stroke:#8e6749;stroke-width:1.1}
+.map-legend a{color:var(--coffee);text-decoration:none}
+.map-route-badge{position:absolute;z-index:4;right:16px;bottom:47px;max-width:65%;padding:8px 11px;background:#fffdf8ed;border:1px solid var(--line);color:var(--navy);font-size:10px;box-shadow:0 2px 12px #3d514015}
+.map-route-badge[hidden]{display:none}
+.map-route-swatch{display:inline-block;width:20px;height:3px;margin:0 7px 2px 0;vertical-align:middle;border-radius:4px}
+.tabs{gap:13px;overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
+.tabs button{flex:0 0 auto}
+.tour-card{background:#fffdf9;border:1px solid var(--line);padding:13px 14px;margin:0 0 12px;transition:border-color .18s,box-shadow .18s}
+.tour-card.active{border-color:var(--coffee);box-shadow:0 3px 14px #563d2612}
+.tour-kicker{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;color:var(--coffee);font-size:9px;font-weight:700;letter-spacing:.03em}
+.tour-card h3{margin:7px 0 5px;color:var(--navy);font:600 16px Georgia,'Noto Serif TC',serif}
+.tour-summary{margin:0;color:#738078;font-size:10px;line-height:1.65}
+.tour-stops{list-style:none;padding:0;margin:11px 0 10px;position:relative}
+.tour-stops:before{content:'';position:absolute;left:10px;top:12px;bottom:12px;width:1px;background:#d7cfc2}
+.tour-stop{position:relative;display:grid;grid-template-columns:21px minmax(65px,auto) 1fr;gap:8px;align-items:start;padding:4px 0}
+.tour-stop-num{width:20px;height:20px;border:2px solid #fffdf8;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:9px;font-weight:700;z-index:1;box-shadow:0 0 0 1px #d8cdbd}
+.tour-stop-city{color:var(--navy);font-size:10px;font-weight:700;padding-top:3px}
+.tour-stop-attraction{color:#738078;font-size:9px;line-height:1.5;padding-top:3px}
+.tour-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #eee9df;padding-top:10px}
+.tour-sources{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:9px}
+.tour-sources a{color:var(--coffee);text-decoration:none}
+.tour-map-btn{border:1px solid var(--navy);background:var(--navy);color:#fff;padding:8px 10px;font-size:9px;white-space:nowrap}
+.tour-map-btn.active{background:#fffdf8;color:var(--navy)}
+@media(max-width:850px){.tour-bottom{align-items:flex-start;flex-direction:column}.map-route-badge{right:8px;bottom:42px;max-width:76%}}
+
+</style></head><body><header><div class="logo"><b>D</b>DORAK　／　土耳其靈感地圖</div><span class="small">旅行社 × 在地操作　共同發想 &nbsp; <a href="en.html">EN</a></span></header><main><div class="heading"><div><div class="eyebrow">TÜRKİYE · DESTINATION EXPLORER</div><h1>從一個省份，開始拼出一趟旅程。</h1><p>點選土耳其省界看目的地靈感；把想去的地方加入路線，再拖曳調整順序。</p></div><div class="small" id="count">已探索 0 / 81 省</div></div><div class="explore"><section class="map-area"><div class="map-title"><b>土耳其全圖</b><small>選區域縮小範圍；點選省界查看靈感</small></div><div class="regions" id="regions"></div><svg id="map" viewBox="0 0 820 600" role="img" aria-label="土耳其81省互動地圖"><rect width="820" height="600" fill="#e9efeb"/><g id="shapes"></g><g id="cityLabelsLayer"></g><g id="poiLayer"></g><g id="routeLayer"></g></svg><div class="map-route-badge" id="mapRouteBadge" hidden></div><div class="map-legend">城市標籤標示各省首府；路線線段表示行程順序，不是道路導航。 <a href="https://github.com/alpers/Turkey-Maps-GeoJSON" target="_blank" rel="noopener">OSM map data</a> · <a href="https://gist.github.com/abdullahoguk/ee03c26a23dca6eda9c480b4967e77b6" target="_blank" rel="noopener">市中心座標資料</a></div></section><aside class="panel"><div class="panel-head"><div class="sup" id="regionLabel">TÜRKİYE · 全圖</div><h2 id="title">選一個省份開始探索</h2><p id="description">目前顯示土耳其全境。可點選省界，或從上方選擇地理區域。</p></div><div class="tabs"><button class="on" data-tab="ideas">目的地靈感</button><button data-tab="tours">觀光路線</button><button data-tab="route">路線草稿 <span id="routeCount">0</span></button></div><div class="pane" id="pane"></div><div class="panel-actions" id="panelActions"><button class="btn" id="addRoute" disabled>＋ 加入路線</button><button class="btn alt" id="resetRoute">清空路線</button></div></aside></div><div class="footer"><span>資料整理初稿｜主要參考 GoTürkiye 官方旅遊頁；部分省份資訊有限，請點來源複核後再對外使用。</span><span>地圖界線來自 OSM 衍生 GeoJSON，正式上線前應核對授權與行政資料版本。</span></div></main><div class="toast" id="toast"></div>
 <script>
 const GEO_URL='https://raw.githubusercontent.com/alpers/Turkey-Maps-GeoJSON/master/tr-cities.json';let GEO=null;
 const REGIONS=[['馬爾馬拉',['Balıkesir','Bilecik','Bursa','Çanakkale','Edirne','İstanbul','Kırklareli','Kocaeli','Sakarya','Tekirdağ','Yalova']],['愛琴海',['Afyon','Aydın','Denizli','İzmir','Kütahya','Manisa','Muğla','Uşak']],['黑海',['Amasya','Artvin','Bartın','Bayburt','Bolu','Çorum','Düzce','Giresun','Gümüşhane','Karabük','Kastamonu','Ordu','Rize','Samsun','Sinop','Tokat','Trabzon','Zonguldak']],['地中海',['Adana','Antalya','Burdur','Hatay','Isparta','Kahramanmaraş','Mersin','Osmaniye']],['中安納托利亞',['Aksaray','Ankara','Çankırı','Eskişehir','Karaman','Kayseri','Kırıkkale','Kırşehir','Konya','Nevşehir','Niğde','Sivas','Yozgat']],['東安納托利亞',['Ağrı','Ardahan','Bingöl','Bitlis','Elazığ','Erzincan','Erzurum','Hakkari','Iğdır','Kars','Malatya','Muş','Tunceli','Van']],['東南安納托利亞',['Adıyaman','Batman','Diyarbakır','Gaziantep','Kilis','Mardin','Siirt','Şanlıurfa','Şırnak']]];
-const COLORS=['#c5d2bb','#e2c69f','#d6c5a6','#a9c7c3','#d99f7e','#c2b49f','#b7c49f'];let EXAMPLES={}
+const COLORS=['#c5d2bb','#e2c69f','#d6c5a6','#a9c7c3','#d99f7e','#c2b49f','#b7c49f'];let EXAMPLES={},CITY_CENTERS={},TOURS=[],selectedTour=null;const LANG=document.documentElement.lang.startsWith('zh')?'zh':'en';
 ;
 let byName={}
 ,selected=null,filter=-1,tab='ideas',route=JSON.parse(localStorage.getItem('dorak-route-v2')||'[]'),visited=new Set(JSON.parse(localStorage.getItem('dorak-visited-v2')||'[]'));
@@ -91,7 +122,7 @@ function regionOf(name){return REGIONS.findIndex(r=>r[1].includes(name))}
 function pathsFor(f){let polys=f.geometry.type==='Polygon'?[f.geometry.coordinates]:f.geometry.coordinates;return polys.map(poly=>poly.map(r=>r.map((p,i)=>{let q=xy(p);return(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)}
 ).join(' ')+' Z').join(' ')).join(' ')}
 
-function renderRegions(){let html='<button class="'+(filter===-1?'active':'')+'" data-region="-1">土耳其全圖</button>';REGIONS.forEach((r,i)=>html+='<button class="'+(filter===i?'active':'')+'" data-region="'+i+'">'+r[0]+'</button>');document.getElementById('regions').innerHTML=html;document.querySelectorAll('[data-region]').forEach(b=>b.onclick=()=>{filter=+b.dataset.region;selected=null;renderRegions();drawMap();zoomToRegion();document.getElementById('regionLabel').textContent=filter<0?'TÜRKİYE · 全圖':'區域 0'+(filter+1)+' · '+REGIONS[filter][0];document.getElementById('title').textContent=filter<0?'土耳其全圖':REGIONS[filter][0];document.getElementById('description').textContent=filter<0?'目前顯示土耳其全境。可點選省界，或從上方選擇地理區域。':'點選區域內省界，瀏覽目的地靈感並加入路線。';renderPane()}
+function renderRegions(){let html='<button class="'+(filter===-1?'active':'')+'" data-region="-1">土耳其全圖</button>';REGIONS.forEach((r,i)=>html+='<button class="'+(filter===i?'active':'')+'" data-region="'+i+'">'+r[0]+'</button>');document.getElementById('regions').innerHTML=html;document.querySelectorAll('[data-region]').forEach(b=>b.onclick=()=>{filter=+b.dataset.region;selected=null;selectedTour=null;renderRegions();drawMap();zoomToRegion();document.getElementById('regionLabel').textContent=filter<0?'TÜRKİYE · 全圖':'區域 0'+(filter+1)+' · '+REGIONS[filter][0];document.getElementById('title').textContent=filter<0?'土耳其全圖':REGIONS[filter][0];document.getElementById('description').textContent=filter<0?'目前顯示土耳其全境。可點選省界，或從上方選擇地理區域。':'點選區域內省界，瀏覽目的地靈感並加入路線。';renderPane()}
 )}
 
 function zoomToRegion(){const svg=document.getElementById('map');if(filter<0){svg.setAttribute('viewBox','0 0 820 600');return}
@@ -103,15 +134,20 @@ GEO.features.filter(f=>regionOf(f.properties.name)===filter).forEach(f=>scan(f.g
 `)}
 
 function drawMap(){const root=document.getElementById('shapes');root.innerHTML='';GEO.features.forEach(f=>{let n=f.properties.name,r=regionOf(n);if(filter>=0&&r!==filter)return;let e=document.createElementNS('http://www.w3.org/2000/svg','path');e.setAttribute('d',pathsFor(f));e.setAttribute('class','province'+(selected===n?' selected':''));e.setAttribute('fill',COLORS[Math.max(r,0)]);e.onclick=()=>selectProvince(n);root.appendChild(e)}
-);drawPois();drawRoute()}
+);drawCityLabels();drawPois();drawRoute()}
 
 function drawPois(){const layer=document.getElementById('poiLayer');layer.innerHTML='';if(filter<0)return;Object.entries(EXAMPLES).forEach(([name,info])=>{if(regionOf(name)!==filter)return;const c=center(name),picks=[info.points[0],info.points[2]];picks.forEach((p,i)=>{const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',c[0]+(i?10:-10));t.setAttribute('y',c[1]-(i?14:2));t.setAttribute('font-size','17');t.setAttribute('text-anchor','middle');t.setAttribute('style','cursor:pointer;paint-order:stroke;stroke:#fffdf8;stroke-width:3px');t.setAttribute('title',name+'｜'+p[1]);t.textContent=p[0];t.onclick=()=>selectProvince(name);layer.appendChild(t)}
 )}
 )}
 
-function selectProvince(n){selected=n;visited.add(n);localStorage.setItem('dorak-visited-v2',JSON.stringify([...visited]));document.getElementById('count').textContent='已探索 '+visited.size+' / 81 省';document.getElementById('title').textContent=n;document.getElementById('regionLabel').textContent=REGIONS[regionOf(n)][0];document.getElementById('description').textContent=EXAMPLES[n]?.intro||'官方目的地亮點正在整理中；先將 '+n+' 加入路線草稿，與團隊共同發想。';document.getElementById('addRoute').disabled=false;drawMap();tab='ideas';setTab();renderPane()}
+function selectProvince(n){selectedTour=null;selected=n;visited.add(n);localStorage.setItem('dorak-visited-v2',JSON.stringify([...visited]));document.getElementById('count').textContent='已探索 '+visited.size+' / 81 省';document.getElementById('title').textContent=n;document.getElementById('regionLabel').textContent=REGIONS[regionOf(n)][0];document.getElementById('description').textContent=EXAMPLES[n]?.intro||'官方目的地亮點正在整理中；先將 '+n+' 加入路線草稿，與團隊共同發想。';document.getElementById('addRoute').disabled=false;drawMap();tab='ideas';setTab();renderPane()}
 
-function renderPane(){const pane=document.getElementById('pane');if(tab==='route'){if(!route.length){pane.innerHTML='<div class="empty">路線草稿目前是空的。<br>點選省份後加入目的地，再拖曳排列順序。<br><small>地圖會以線條連接各省份的近似中心點，供路線發想參考。</small></div>';return}
+function renderPane(){const pane=document.getElementById('pane');
+if(tab==='tours'){
+ const choose=o=>o&&o[LANG]||'';
+ pane.innerHTML=TOURS.map(t=>'<article class="tour-card'+(selectedTour&&selectedTour.id===t.id?' active':'')+'"><div class="tour-kicker"><span>'+choose(t.duration)+'</span><span>·</span><span>'+choose(t.theme)+'</span></div><h3>'+choose(t.title)+'</h3><p class="tour-summary">'+choose(t.summary)+'</p><ol class="tour-stops">'+t.stops.map((s,i)=>'<li class="tour-stop"><span class="tour-stop-num" style="background:'+t.color+'">'+(i+1)+'</span><span class="tour-stop-city">'+choose(CITY_CENTERS[s.province]||{})+'</span><span class="tour-stop-attraction">'+choose(s.attraction)+'</span></li>').join('')+'</ol><div class="tour-bottom"><div class="tour-sources">'+t.sourceLinks.map(s=>'<a href="'+s.url+'" target="_blank" rel="noopener">'+choose(s.label)+' ↗</a>').join('')+'</div><button class="tour-map-btn'+(selectedTour&&selectedTour.id===t.id?' active':'')+'" data-tour="'+t.id+'">'+(selectedTour&&selectedTour.id===t.id?(LANG==='zh'?'目前顯示中':'Shown on map'):(LANG==='zh'?'在地圖上顯示':'Show on map'))+'</button></div></article>').join('');
+ document.querySelectorAll('[data-tour]').forEach(b=>b.onclick=()=>showTour(b.dataset.tour));return
+}if(tab==='route'){if(!route.length){pane.innerHTML='<div class="empty">路線草稿目前是空的。<br>點選省份後加入目的地，再拖曳排列順序。<br><small>地圖會以線條連接各省份的近似中心點，供路線發想參考。</small></div>';return}
 pane.innerHTML='<ol class="route-list">'+route.map((n,i)=>'<li class="route-item" draggable="true" data-i="'+i+'"><span class="handle">⠿</span><span class="num">'+(i+1)+'</span><span class="route-name">'+n+'</span><button class="remove" data-del="'+i+'">×</button></li>').join('')+'</ol><div class="source">拖曳左側把手或整列調整先後順序。地圖線條為直線示意，非道路導航。</div>';let dragged=null;document.querySelectorAll('.route-item').forEach(el=>{el.ondragstart=e=>{dragged=+el.dataset.i;el.classList.add('dragging');e.dataTransfer.effectAllowed='move'}
 ;el.ondragend=()=>el.classList.remove('dragging');el.ondragover=e=>e.preventDefault();el.ondrop=e=>{e.preventDefault();let to=+el.dataset.i;if(dragged===null||dragged===to)return;const x=route.splice(dragged,1)[0];route.splice(to,0,x);saveRoute();renderPane();drawRoute()}
 }
@@ -121,21 +157,47 @@ if(!selected){pane.innerHTML='<div class="empty">選取省份即可查看三項�
 const x=EXAMPLES[selected];pane.innerHTML=x.points.map(p=>'<article class="tip"><span class="ico">'+p[0]+'</span><div><h3>'+p[1]+'</h3><p>'+p[2]+'</p><div class="source"><a href="'+p[3]+'" target="_blank" rel="noopener">官方資料來源 ↗</a></div></div><button class="fav" title="加入路線" data-add="'+selected+'">＋</button></article>').join('');document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>addRoute(b.dataset.add))}
 
 function setTab(){document.querySelectorAll('.tabs button').forEach(b=>{b.classList.toggle('on',b.dataset.tab===tab)}
-);renderPane();drawRoute()}
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;setTab()}
+);const a=document.getElementById('panelActions');if(a)a.style.display=tab==='tours'?'none':'flex';renderPane();drawRoute()}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;if(tab!=='tours')selectedTour=null;setTab()}
 );function saveRoute(){localStorage.setItem('dorak-route-v2',JSON.stringify(route));document.getElementById('routeCount').textContent=route.length;drawRoute()}
 function addRoute(n){if(!route.includes(n))route.push(n);saveRoute();document.getElementById('routeCount').textContent=route.length;toast(n+' 已加入路線草稿');if(tab==='route')renderPane()}
 document.getElementById('addRoute').onclick=()=>selected&&addRoute(selected);document.getElementById('resetRoute').onclick=()=>{route=[];saveRoute();renderPane()}
 ;
-function center(name){const f=byName[name];let poly=f.geometry.type==='Polygon'?[f.geometry.coordinates]:f.geometry.coordinates,pts=[];poly.forEach(a=>a[0].forEach(p=>pts.push(p)));return xy([pts.reduce((s,p)=>s+p[0],0)/pts.length,pts.reduce((s,p)=>s+p[1],0)/pts.length])}
-function drawRoute(){const layer=document.getElementById('routeLayer');if(!layer)return;layer.innerHTML='';if(filter>=0||tab!=='route'||route.length<1)return;let pts=route.map(center);if(pts.length>1){let path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('class','route-line');path.setAttribute('d',pts.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join(' '));layer.appendChild(path)}
-pts.forEach((p,i)=>{let c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('class','route-stop');c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r',8);layer.appendChild(c);let t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',p[0]);t.setAttribute('y',p[1]+3.5);t.setAttribute('text-anchor','middle');t.setAttribute('fill','#fff');t.setAttribute('font-size','9');t.textContent=i+1;layer.appendChild(t)}
-)}
+function center(name){const c=CITY_CENTERS[name];if(c)return xy([c.lon,c.lat]);const f=byName[name];let poly=f.geometry.type==='Polygon'?[f.geometry.coordinates]:f.geometry.coordinates,pts=[];poly.forEach(a=>a[0].forEach(p=>pts.push(p)));return xy([pts.reduce((s,p)=>s+p[0],0)/pts.length,pts.reduce((s,p)=>s+p[1],0)/pts.length])}
+function drawCityLabels(){
+const layer=document.getElementById('cityLabelsLayer');if(!layer||!GEO)return;layer.innerHTML='';
+const font=filter<0?8.1:10.2;
+const items=GEO.features.filter(f=>filter<0||regionOf(f.properties.name)===filter).map(f=>{const name=f.properties.name,c=CITY_CENTERS[name]||{};return{name,label:LANG==='zh'?(c.zh||name):(c.en||name),p:center(name)}});
+items.forEach(a=>a.density=items.reduce((n,b)=>n+(a!==b&&Math.hypot(a.p[0]-b.p[0],a.p[1]-b.p[1])<52?1:0),0));
+items.sort((a,b)=>b.density-a.density||Array.from(b.label).length-Array.from(a.label).length||a.name.localeCompare(b.name));
+const placed=[];const angles=[0,45,90,135,180,225,270,315];const radii=filter<0?[9,15,22,30,40,52,66,80]:[10,17,25,36,50];
+for(const item of items){
+ const wide=Array.from(item.label).reduce((w,ch)=>w+(ch.charCodeAt(0)>255?font:font*.62),0)+7,h=font+4;let best=null;
+ for(const r of radii)for(const deg of angles){const a=deg*Math.PI/180,dx=Math.cos(a)*r,dy=Math.sin(a)*r,anchor=dx>=0?'start':'end';let x=item.p[0]+dx,y=item.p[1]+dy;let x1=anchor==='start'?x:x-wide,y1=y-font+1,x2=x1+wide,y2=y1+h;
+  const edge=Math.max(0,7-x1)+Math.max(0,x2-813)+Math.max(0,66-y1)+Math.max(0,y2-570);const control=(y1<64&&((x1<285)||(x2>390)))?1:0;
+  let overlap=0;for(const b of placed){const iw=Math.max(0,Math.min(x2,b.x2+1)-Math.max(x1,b.x1-1)),ih=Math.max(0,Math.min(y2,b.y2+1)-Math.max(y1,b.y1-1));overlap+=iw*ih}
+  const score=overlap*650+edge*900+control*14000+r*.42+(Math.abs(dx)+Math.abs(dy))*.05;
+  if(!best||score<best.score)best={score,x1,y1,x2,y2,x,y,anchor,wide,h};
+ }
+ if(!best)continue;placed.push(best);
+ const svgNS='http://www.w3.org/2000/svg',g=document.createElementNS(svgNS,'g');g.setAttribute('class','city-label'+(selected===item.name?' selected':''));g.setAttribute('data-city',item.name);g.setAttribute('title',item.label);g.onclick=()=>selectProvince(item.name);
+ const ex=Math.max(best.x1,Math.min(item.p[0],best.x2)),ey=Math.max(best.y1,Math.min(item.p[1],best.y2));
+ if(Math.hypot(ex-item.p[0],ey-item.p[1])>4){const line=document.createElementNS(svgNS,'line');line.setAttribute('class','city-label-line');line.setAttribute('x1',item.p[0]);line.setAttribute('y1',item.p[1]);line.setAttribute('x2',ex);line.setAttribute('y2',ey);g.appendChild(line)}
+ const dot=document.createElementNS(svgNS,'circle');dot.setAttribute('class','city-dot');dot.setAttribute('cx',item.p[0]);dot.setAttribute('cy',item.p[1]);dot.setAttribute('r',filter<0?2.2:3);g.appendChild(dot);
+ const rect=document.createElementNS(svgNS,'rect');rect.setAttribute('class','city-label-bg');rect.setAttribute('x',best.x1);rect.setAttribute('y',best.y1);rect.setAttribute('width',best.wide);rect.setAttribute('height',best.h);rect.setAttribute('rx',3);g.appendChild(rect);
+ const text=document.createElementNS(svgNS,'text');text.setAttribute('class','city-label-text');text.setAttribute('x',best.anchor==='start'?best.x1+3:best.x2-3);text.setAttribute('y',best.y1+font+0.2);text.setAttribute('font-size',font);text.setAttribute('text-anchor',best.anchor==='start'?'start':'end');text.textContent=item.label;g.appendChild(text);layer.appendChild(g)
+}
+}
+function showTour(id){selectedTour=TOURS.find(t=>t.id===id)||null;if(!selectedTour)return;filter=-1;selected=null;renderRegions();drawMap();zoomToRegion();const zh=LANG==='zh';document.getElementById('regionLabel').textContent=zh?'TÜRKİYE · 路線示意':'TÜRKİYE · ROUTE PREVIEW';document.getElementById('title').textContent=selectedTour.title[LANG];document.getElementById('description').textContent=selectedTour.summary[LANG];renderPane();drawRoute()}
+function drawRoute(){const layer=document.getElementById('routeLayer');if(!layer)return;layer.innerHTML='';const badge=document.getElementById('mapRouteBadge');
+ if(tab==='tours'&&selectedTour){const t=selectedTour,badgeText=t.title[LANG];badge.innerHTML='<span class="map-route-swatch" style="background:'+t.color+'"></span>'+badgeText;badge.hidden=false}else if(badge){badge.hidden=true;badge.textContent=''}
+ if(filter>=0)return;
+ let pts=[],color='#b05f45';
+ if(tab==='tours'&&selectedTour){pts=selectedTour.stops.map(s=>center(s.province));color=selectedTour.color}
+ else if(tab==='route'&&route.length){pts=route.map(center)}else return;
+ if(pts.length>1){let path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('class','route-line');path.setAttribute('stroke',color);path.setAttribute('stroke-width',tab==='tours'?'4':'3');path.setAttribute('stroke-dasharray',tab==='tours'?'none':'7 5');path.setAttribute('d',pts.map((p,i)=>(i?'L':'M')+p[0]+','+p[1]).join(' '));layer.appendChild(path)}
+ pts.forEach((p,i)=>{let c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('class','route-stop');c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r',tab==='tours'?8:7);c.setAttribute('fill',color);layer.appendChild(c);let t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',p[0]);t.setAttribute('y',p[1]+3.5);t.setAttribute('text-anchor','middle');t.setAttribute('fill','#fff');t.setAttribute('font-size','9');t.setAttribute('font-weight','700');t.textContent=i+1;layer.appendChild(t)})
+}
 function toast(s){const t=document.getElementById('toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
-Promise.all([fetch(GEO_URL).then(r=>{if(!r.ok)throw Error('Boundary data unavailable');return r.json()}
-),fetch('highlights81.json').then(r=>{if(!r.ok)throw Error('Highlights data unavailable');return r.json()}
-)]).then(([g,h])=>{EXAMPLES=Object.fromEntries(Object.entries(h).map(([n,items])=>[n,{intro:items[0][2],points:items,url:items[0][3]}
-]));initializeGeo(g)}
-).catch(e=>{document.getElementById('pane').innerHTML='<div class=empty>地圖資料暫時載入失敗，請重新整理頁面。<br>'+e.message+'</div>'}
-);
+Promise.all([fetch(GEO_URL).then(r=>{if(!r.ok)throw Error('Boundary data unavailable');return r.json()}),fetch('highlights81.json').then(r=>{if(!r.ok)throw Error('Highlights data unavailable');return r.json()}),fetch('city-centers.json').then(r=>{if(!r.ok)throw Error('City coordinate data unavailable');return r.json()}),fetch('routes.json').then(r=>{if(!r.ok)throw Error('Route data unavailable');return r.json()})]).then(([g,h,c,t])=>{CITY_CENTERS=c.cities;TOURS=t;EXAMPLES=Object.fromEntries(Object.entries(h).map(([n,items])=>[n,{intro:items[0][2],points:items,url:items[0][3]}]));initializeGeo(g)}).catch(e=>{document.getElementById('pane').innerHTML='<div class=empty>'+(LANG==='zh'?'地圖資料載入失敗，請重新整理頁面。':'Map data could not be loaded. Please refresh the page.')+'<br>'+e.message+'</div>'});
 </script></body></html>
